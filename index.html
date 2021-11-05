@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Movie Seat Booking</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Keypad</h1>
+      <div class="displayArea">
+        <input class="screen" id="display" readonly placeholder="type something" />
+        <button onclick="reset()" class="reset">reset</button>
+      </div>
+      <div id="keypad">
+        <div class="row">
+          <button id="button1" class="circle">
+            1<br>ABC
+          </button>
+          <button id="button2" class="circle">
+            2<br>DEF
+          </button>
+          <button id="button3" class="circle">
+            3<br>GHI
+          </button>
+        </div>
+        <div class="row">
+          <button id="button4" class="circle">
+            4<br>JKL
+          </button>
+          <button id="button5" class="circle">
+            5<br>MNO
+          </button>
+          <button id="button6" class="circle">
+            6<br>PQR
+          </button>
+        </div>
+        <div class="row">
+          <button id="button7" class="circle">
+            7<br>STU
+          </button>
+          <button id="button8" class="circle">
+            8<br>VWX
+          </button>
+          <button id="button9" class="circle">
+            9<br>YZ
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

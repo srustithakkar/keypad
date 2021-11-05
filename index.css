@@ -1,0 +1,47 @@
+.container {
+  text-align: center;
+}
+
+.circle {
+  height: 100px;
+  width: 100px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 50%; /* may require vendor prefixes */
+  background: yellow;
+  font-size: 30px;
+}
+.row {
+  display: flex;
+  justify-content: center;
+  color: black;
+}
+
+.screen {
+  height: 50px;
+  width: 200px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  direction: rtl;
+  border-radius: 20px;
+}
+
+.digit {
+  padding-top: 10px;
+}
+
+.reset {
+  height: 50px;
+  width: 60px;
+  display: table-cell;
+  text-align: center;
+  border-radius: 50%; /* may require vendor prefixes */
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.displayArea {
+  display: flex;
+  justify-content: center;
+}
