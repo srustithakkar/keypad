@@ -49,10 +49,12 @@ function onFirstClick(id) {
   changeValue();
 }
 function onDblClick(id) {
+  screen.pop()
   screen.push(keys[id].charAt(1))
   changeValue();
 }
 function onTrplClick(id) {
+  screen.pop()
   screen.push(keys[id].charAt(2))
   changeValue();
 }
