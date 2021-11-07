@@ -2,7 +2,11 @@ const keypad = document.querySelector("#keypad")
 const clicks = [];
 const dblClicks = [];
 const trplClicks = [];
-let screen = []
+const screen = [];
+let oldId = null;
+let value =  null;
+let click = 0;
+let time = null;
 const keys = {
   button1: "ABC",
   button2: "DEF",
@@ -15,54 +19,43 @@ const keys = {
   button9: "YZ",
 }
 
-keypad.addEventListener("click", onClick)
-function reset() {
-  screen = [];
-  document.getElementById("display").value = screen.join("")
-
-}
+keypad.addEventListener("click", onClick);
 
 function onClick(ev){
   let id = ev.target.id
-  if( id.length){
-    if(clicks.includes(id) && dblClicks.includes(id) && trplClicks.includes(id)){
-
-    }
-    else if(clicks.includes(id) && dblClicks.includes(id)){
-      trplClicks.push(id)
-      onTrplClick(id)
-      console.log("trplClicks" + " " + trplClicks)
-    }else if(clicks.includes(id) ){
-      dblClicks.push(id)
-      onDblClick(id);
-      console.log("dblClicks" + " " + dblClicks)
+  if( id.length > 0){
+    if (oldId === id && click === 2){
+      displayValue(id, click);
+      click = 0;
+    }else if( oldId === id && click === 1  ){
+      displayValue(id, click);
+      click = 2;
     }else {
-      clicks.push(ev.target.id);
-      onFirstClick(id);
-      console.log(id + "->" + clicks)
+      click = 0;
+      displayValue(id, click);
+      click = 1;
     }
   }
+    oldId = id;
 }
 
-function onFirstClick(id) {
-  screen.push(keys[id].charAt(0))
-  changeValue();
+function reset() {
+  screen = [];
+  clicks.length = 0;
+  dblClicks.length = 0;
+  trplClicks.length = 0;
+  document.getElementById("display").value = screen.join("");
 }
-function onDblClick(id) {
-  screen.pop()
-  screen.push(keys[id].charAt(1))
-  changeValue();
-}
-function onTrplClick(id) {
-  screen.pop()
-  screen.push(keys[id].charAt(2))
+
+function displayValue(id,index){
+  if(oldId === id){
+    screen[screen.length -1] = keys[id].charAt(index)  ;
+  }else {
+    screen.push(keys[id].charAt(index));
+  }
   changeValue();
 }
 
 function changeValue(){
-  document.getElementById("display").value = screen.join("")
+  document.getElementById("display").value = screen.join("");
 }
-
-// 3clicks for Each button
-// each click behave diffrently
-// 10buttons
