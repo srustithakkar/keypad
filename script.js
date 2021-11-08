@@ -30,7 +30,6 @@ keypad.addEventListener("mouseup", stopMouseCount);
 function startMouseCount() {
   timer = window.setTimeout(function () {
       time++;
-      console.log(time);
       startMouseCount();
   }, 500);
 }
