@@ -12,6 +12,7 @@
   background: yellow;
   font-size: 30px;
 }
+
 .row {
   display: flex;
   justify-content: center;

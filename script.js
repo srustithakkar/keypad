@@ -1,4 +1,4 @@
-const keypad = document.querySelector("#keypad")
+const keypad = document.querySelector("#keypad");
 const clicks = [];
 const dblClicks = [];
 const trplClicks = [];
@@ -53,8 +53,8 @@ function onClick(ev){
 function startMouseCount(ev) {
   key = ev ? ev.target.id : key;
   timer = setTimeout(function () {
-      time++;
-      startMouseCount();
+    time++;
+    startMouseCount();
   }, 500);
 }
 
