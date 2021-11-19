@@ -8,10 +8,8 @@ let value =  null;
 let click = 0;
 let time = 0;
 let timer = null;
-let singleClick = 0;
 let key;
-let pastMin ;
-let pastSec ;
+let pastSec;
 let secDif = 0;
 const keys = {
   button1: "ABC1",
@@ -30,6 +28,28 @@ keypad.addEventListener("click", onClick);
 keypad.addEventListener("mousedown", startMouseCount);
 keypad.addEventListener("mouseup", stopMouseCount);
 
+function onClick(ev){   
+  let D = new Date;
+  let currentSec = D.getSeconds();
+  let id = ev.target.id;
+  if( id.length > 0 && time < 2){
+    time = 0;
+    if (oldId === id){
+      secDif = currentSec - pastSec;
+      if (secDif > 2 || secDif < -2){
+        click = 0;
+      }
+    }
+    changeDigits(id);
+  }else {
+    time = 0;
+    click = 3;
+    displayValue(id, click);
+  }
+  oldId = id;
+  pastSec = currentSec;
+}
+
 function startMouseCount(ev) {
   key = ev ? ev.target.id : key;
   timer = setTimeout(function () {
@@ -42,42 +62,22 @@ function stopMouseCount() {
   clearTimeout(timer);
 }
 
-function onClick(ev){   
-  let D = new Date;
-  let currentMin = D.getMinutes();
-  let currentSec = D.getSeconds();
-  let id = ev.target.id
-  if( id.length > 0 && time < 3){
-    time = 0;
-    if (oldId === id){
-        secDif = currentSec - pastSec
-    }
-    changeDigits(id);
-  }else {
-    time = 0
-    click = 3;
-    displayValue(id, click);
-  }
-  oldId = id;
-  pastMin = currentMin;
-  pastSec = currentSec;
-}
-
 function reset() {
   screen.length = 0;
   clicks.length = 0;
   dblClicks.length = 0;
   trplClicks.length = 0;
+  time= 0;
   document.getElementById("display").value = screen.join("");
 }
 
 function displayValue(id,index){
   if (id.length){
     if(oldId === id){
-      if(secDif > 5 || secDif < -5){
+      if(secDif > 2 || secDif < -2){
         screen.push(keys[id].charAt(index));
       }else {
-        screen[screen.length -1] = keys[id].charAt(index)  ;
+        screen[screen.length -1] = keys[id].charAt(index);
       }
     }else {
       screen.push(keys[id].charAt(index));
