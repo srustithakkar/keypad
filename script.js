@@ -8,8 +8,11 @@ let value =  null;
 let click = 0;
 let time = 0;
 let timer = null;
-
-
+let singleClick = 0;
+let key;
+let pastMin ;
+let pastSec ;
+let secDif = 0;
 const keys = {
   button1: "ABC1",
   button2: "DEF2",
@@ -27,8 +30,9 @@ keypad.addEventListener("click", onClick);
 keypad.addEventListener("mousedown", startMouseCount);
 keypad.addEventListener("mouseup", stopMouseCount);
 
-function startMouseCount() {
-  timer = window.setTimeout(function () {
+function startMouseCount(ev) {
+  key = ev ? ev.target.id : key;
+  timer = setTimeout(function () {
       time++;
       startMouseCount();
   }, 500);
@@ -38,30 +42,25 @@ function stopMouseCount() {
   clearTimeout(timer);
 }
 
-function onClick(ev){
+function onClick(ev){   
+  let D = new Date;
+  let currentMin = D.getMinutes();
+  let currentSec = D.getSeconds();
   let id = ev.target.id
   if( id.length > 0 && time < 3){
     time = 0;
-    if(id === "button10"){
-      click = 3;
-      displayValue(id, click);
-    }else if (oldId === id && click === 2){
-      displayValue(id, click);
-      click = 0;
-    }else if( oldId === id && click === 1  ){
-      displayValue(id, click);
-      click = 2;
-    }else {
-      click = 0;
-      displayValue(id, click);
-      click = 1;
+    if (oldId === id){
+        secDif = currentSec - pastSec
     }
+    changeDigits(id);
   }else {
     time = 0
     click = 3;
     displayValue(id, click);
   }
   oldId = id;
+  pastMin = currentMin;
+  pastSec = currentSec;
 }
 
 function reset() {
@@ -75,7 +74,11 @@ function reset() {
 function displayValue(id,index){
   if (id.length){
     if(oldId === id){
-      screen[screen.length -1] = keys[id].charAt(index)  ;
+      if(secDif > 5 || secDif < -5){
+        screen.push(keys[id].charAt(index));
+      }else {
+        screen[screen.length -1] = keys[id].charAt(index)  ;
+      }
     }else {
       screen.push(keys[id].charAt(index));
     }
@@ -85,4 +88,21 @@ function displayValue(id,index){
 
 function changeValue(){
   document.getElementById("display").value = screen.join("");
+}
+
+function changeDigits(id) {
+  if(id === "button10"){
+    click = 3;
+    displayValue(id, click);
+  }else if (oldId === id && click === 2){
+    displayValue(id, click);
+    click = 0;
+  }else if( oldId === id && click === 1  ){ 
+    displayValue(id, click);
+    click = 2;
+  }else {
+    click = 0;
+    displayValue(id, click);
+    click = 1;
+  }
 }
